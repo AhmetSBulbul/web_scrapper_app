@@ -99,8 +99,7 @@ class WorkflowPage extends StatelessWidget {
                                   child: GetX<WorkflowController>(
                                     builder: (controller) {
                                       return Text(
-                                        controller.currentAction.output
-                                            .toString(),
+                                        controller.currentOutput,
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1

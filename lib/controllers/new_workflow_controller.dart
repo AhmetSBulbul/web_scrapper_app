@@ -13,10 +13,10 @@ class NewWorkflowController extends GetxController {
 
   changeBaseUrl(String value) => baseUrl('http://$value');
 
-  void fetchPage() async {
+  void fetchPage({String? savedVal}) async {
     try {
       isLoading(true);
-      var response = await _provider.getWebPage(baseUrl.value);
+      var response = await _provider.getWebPage(savedVal ?? baseUrl.value);
       document(Scrapper.getDocument(response));
       metaTitle(Scrapper.getMetaTitle(document.value));
     } catch (err) {

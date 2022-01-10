@@ -11,6 +11,12 @@ class WorkflowController extends GetxController {
 
   ActionModel get currentAction => actions.last;
   List<ActionModel> get actionsList => actions;
+  String get currentOutput => actions.last.output.isNotEmpty
+      ? actions.last.output
+          .map((e) => 'tag: $e \n attributes: ${e.attributes}\n\n')
+          .toList()
+          .toString()
+      : '';
 
   @override
   void onInit() {
