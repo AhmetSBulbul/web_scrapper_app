@@ -32,8 +32,12 @@ class Scrapper {
   }
 
   static List<Element>? getChildren(Element? element) => element?.children;
-  static List<Element>? getLinks(Element? element) =>
-      element?.getElementsByTagName('a');
+  static List<Element>? getLinks(Element? element) => element
+      ?.getElementsByTagName('a')
+      .where((link) =>
+          link.attributes['href'] != null &&
+          link.attributes['href'].toString().startsWith('/'))
+      .toList();
 
   static List<Element>? selectElement(List<Element>? elements, int index) =>
       elements != null ? <Element>[elements[index]] : <Element>[];

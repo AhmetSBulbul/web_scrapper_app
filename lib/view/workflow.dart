@@ -86,6 +86,48 @@ class WorkflowPage extends StatelessWidget {
                   ),
                 ));
               },
+            ),
+            ListTile(
+              title: const Text("Click Link"),
+              onTap: () {
+                Get.bottomSheet(Container(
+                  height: 150,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      const Text("Select Link"),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Expanded(
+                        child: GetX<WorkflowController>(
+                          builder: (controller) {
+                            if (controller.isLoading.value) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (controller.error.isNotEmpty) {
+                              return Center(
+                                child: Text(controller.error.value),
+                              );
+                            } else {
+                              return ListView(
+                                  children: controller.currentAction.output
+                                      .map((e) => ListTile(
+                                            title: Text(e.toString()),
+                                            onTap: () {
+                                              controller.clickLink(e);
+                                            },
+                                          ))
+                                      .toList());
+                            }
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ));
+              },
             )
           ],
         ),
@@ -146,8 +188,8 @@ class WorkflowPage extends StatelessWidget {
                                 Get.toNamed('/scrappingResult',
                                     arguments: Get.find<WorkflowController>()
                                         .currentAction
-                                        .output[0]
-                                        .innerHtml);
+                                        .input
+                                        ?.innerHtml);
                               },
                               child: Text("Get Inner Html"))
                         ],
