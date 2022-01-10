@@ -26,5 +26,6 @@ class ScrappedElement {
       ScrappedElement.fromMap(json.decode(source));
 
   @override
-  String toString() => 'ScrappedElement(tag: $tag, attributes: $attributes)';
+  String toString() =>
+      '\nScrappedElement{\ntag: $tag \nattributes: $attributes\n}\n';
 }

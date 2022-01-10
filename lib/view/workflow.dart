@@ -56,6 +56,36 @@ class WorkflowPage extends StatelessWidget {
                   ),
                 ));
               },
+            ),
+            ListTile(
+              title: const Text("Get Links"),
+              onTap: () {
+                Get.bottomSheet(Container(
+                  height: 150,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      const Text("Select Parent Element"),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Expanded(
+                        child: GetX<WorkflowController>(
+                          builder: (controller) => ListView(
+                              children: controller.currentAction.output
+                                  .map((e) => ListTile(
+                                        title: Text(e.toString()),
+                                        onTap: () {
+                                          controller.getLinks(e);
+                                        },
+                                      ))
+                                  .toList()),
+                        ),
+                      )
+                    ],
+                  ),
+                ));
+              },
             )
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:html/dom.dart';
 import 'package:web_scrapper_app/models/action_model.dart';
+import 'package:web_scrapper_app/models/scrapped_element_model.dart';
 import 'package:web_scrapper_app/utils/scrapper.dart';
 
 class WorkflowController extends GetxController {
@@ -13,8 +14,8 @@ class WorkflowController extends GetxController {
   List<ActionModel> get actionsList => actions;
   String get currentOutput => actions.last.output.isNotEmpty
       ? actions.last.output
-          .map((e) => 'tag: $e \n attributes: ${e.attributes}\n\n')
-          .toList()
+          .map((e) =>
+              ScrappedElement(e.toString(), e.attributes.toString()).toString())
           .toString()
       : '';
 
@@ -37,6 +38,11 @@ class WorkflowController extends GetxController {
       title: 'Get Children',
       input: element,
       output: Scrapper.getChildren(element) ?? []));
+
+  getLinks(Element element) => actions.add(ActionModel(
+      title: 'Get Links',
+      input: element,
+      output: Scrapper.getLinks(element) ?? []));
 
   popLast() {
     if (actions.length > 1) {
